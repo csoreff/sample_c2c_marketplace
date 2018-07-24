@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_095250) do
     t.string "nickname"
     t.string "image"
     t.string "email"
+    t.integer "points"
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
