@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :show]
       resources :products
+      resources :purchases, except: [:update, :destroy]
     end
   end
 end

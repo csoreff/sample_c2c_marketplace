@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :products
+  has_many :purchases
 
   before_create :assign_sign_up_points
 
