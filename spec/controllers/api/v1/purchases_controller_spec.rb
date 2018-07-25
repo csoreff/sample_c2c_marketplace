@@ -60,7 +60,6 @@ describe Api::V1::PurchasesController do
       end
 
       it "renders a JSON response with the new purchase" do
-
         post :create, params: {purchase: create_params}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
@@ -70,9 +69,8 @@ describe Api::V1::PurchasesController do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the new purchase" do
-
         post :create, params: {purchase: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:not_found)
         expect(response.content_type).to eq('application/json')
       end
     end

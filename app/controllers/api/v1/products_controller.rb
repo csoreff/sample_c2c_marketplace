@@ -17,8 +17,7 @@ module Api::V1
 
     # POST /products
     def create
-      @product = Product.new(product_params)
-      @product.user_id = current_user.id
+      @product = Product.new(product_params.merge(user_id: current_user.id))
 
       if @product.save
         render json: @product, status: :created, location: v1_product_url(@product)

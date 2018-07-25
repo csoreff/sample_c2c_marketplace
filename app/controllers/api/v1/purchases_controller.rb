@@ -16,19 +16,16 @@ module Api::V1
 
     # POST /purchases
     def create
-      @purchase = Purchase.new(purchase_params)
-      @product = Product.find_by_id(@purchase.product_id)
-      @seller = @product.user if @product
-      @purchase.amount = @product.cost if @product
-      @purchase.user_id = current_user.id
+      product = Product.find_by_id(purchase_params[:product_id])
+      seller = product.user if product
+      @new_purchase_service = NewPurchaseService.new(product: product, user: current_user, seller: seller)
 
-      if @product && @product.status == "active" && @purchase.save
-        @product.update_attribute(:status, Product.statuses[:sold])
-        current_user.update_attribute(:points, current_user.points - @purchase.amount)
-        @seller.update_attribute(:points, @seller.points + @purchase.amount)
-        render json: @purchase, status: :created, location: v1_purchase_url(@purchase)
+      if !product || product.status != "active"
+        render json: {error: 'Product is either not available or does not exist'}, status: :not_found
+      elsif product && @new_purchase_service.save
+        render json: @new_purchase_service.purchase, status: :created, location: v1_purchase_url(@new_purchase_service.purchase)
       else
-        render json: @purchase.errors, status: :unprocessable_entity
+        render json: @new_purchase_service.purchase.errors, status: :unprocessable_entity
       end
     end
 
