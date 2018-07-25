@@ -53,4 +53,5 @@ gem 'omniauth'
 gem 'active_model_serializers'
 gem 'rack-cors'
 gem 'rack-attack'
+gem 'kaminari'
 

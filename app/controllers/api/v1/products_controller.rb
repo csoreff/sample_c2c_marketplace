@@ -5,9 +5,9 @@ module Api::V1
 
     # GET /products
     def index
-      @products = Product.all
+      @products = Product.page(params[:page] || 1)
 
-      render json: @products
+      render json: @products, meta: { total_pages: @products.total_pages, page: params[:page] }
     end
 
     # GET /products/1

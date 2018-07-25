@@ -4,9 +4,9 @@ module Api::V1
 
     # GET /purchases
     def index
-      @purchases = Purchase.all
+      @purchases = Purchase.page(params[:page] || 1)
 
-      render json: @purchases
+      render json: @purchases, meta: { total_pages: @purchases.total_pages, page: params[:page] }
     end
 
     # GET /purchases/1

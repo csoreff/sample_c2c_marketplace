@@ -3,7 +3,9 @@ module Api::V1
 
     # GET /v1/users
     def index
-      render json: User.all
+      @users = User.page(params[:page] || 1)
+
+      render json: @users, meta: { total_pages: @users.total_pages, page: params[:page] }
     end
 
     # GET /v1/users/{id}
