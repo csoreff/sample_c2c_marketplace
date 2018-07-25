@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This API uses [devise\_token\_auth](https://devise-token-auth.gitbook.io/devise-token-auth/usage) for User registration and token authentication.
 
-Things you may want to cover:
+A user can be created like so:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```curl --data "email=test2@test.com&password=testpassword1&password_confirmation=testpassword1&confirm_success_url=http://localhost:3000" http://localhost:3000/auth```
